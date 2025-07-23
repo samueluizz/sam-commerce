@@ -1,4 +1,4 @@
-# 🛒 Sam Commerce\* – Loja virtual de tecnologia com Next.js
+# 🛒 Sam Commerce – Loja virtual de tecnologia com Next.js
 
 **Sam Commerce** é um e-commerce moderno e responsivo desenvolvido com Next.js, simulando uma loja online com produtos tecnológicos. Todo o front-end é construído com componentes reutilizáveis e foco em performance e usabilidade.
 
