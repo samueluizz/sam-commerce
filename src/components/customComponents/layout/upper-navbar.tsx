@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { SearchBar } from '@/components/ui/searchbar';
 import { CartModal } from '../cart/cartModal';
-import { useCartContext } from '../cart/cartContext';
+import { useCartContext } from '../../../contexts/cartContext';
 
 function ClientOnly({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
@@ -106,6 +106,7 @@ export default function UpperNavbar() {
           <Button
             variant={'link'}
             className='flex items-center hover:no-underline hover:text-theme1/70 dark:hover:text-theme2'
+            onClick={() => navigation.push('/favorites')}
           >
             <FaHeart className='text-base' />
             <span className='hidden lg:inline'>Favorites</span>

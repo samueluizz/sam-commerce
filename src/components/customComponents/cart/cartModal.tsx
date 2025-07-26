@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { useCartContext } from './cartContext';
+import { useCartContext } from '../../../contexts/cartContext';
 import Image from 'next/image';
 import { FaTrash } from 'react-icons/fa';
 

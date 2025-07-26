@@ -7,6 +7,7 @@ import React, {
   useEffect,
   ReactNode,
 } from 'react';
+import { toast } from 'sonner';
 
 export interface CartItem {
   id: number;
@@ -53,6 +54,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const addToCart = (product: Omit<CartItem, 'quantity'>) => {
     setCart((prevCart) => {
+      toast.success('Item adicionado ao carrinho!');
+
       const existingItem = prevCart.find((item) => item.id === product.id);
       if (existingItem) {
         return prevCart.map((item) =>
@@ -61,12 +64,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
             : item,
         );
       }
+
       return [...prevCart, { ...product, quantity: 1 }];
     });
   };
 
   const removeFromCart = (productId: number) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+    toast.warning('Item removido do carrinho!');
   };
 
   const updateQuantity = (productId: number, newQuantity: number) => {

@@ -7,13 +7,13 @@ import { AddToCartButton } from '../cart/addToCartButton';
 
 const items = [
   {
-    id: 1,
+    id: 3,
     name: 'Game Controller',
     image: '/game-controller.png',
     price: 120,
   },
   {
-    id: 2,
+    id: 4,
     name: 'Notebook',
     image: '/notebook-nobg.png',
     price: 1099,

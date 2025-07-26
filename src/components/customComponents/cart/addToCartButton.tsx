@@ -2,7 +2,7 @@
 
 import { FaShoppingCart } from 'react-icons/fa';
 import { Button } from '../../ui/button';
-import { useCartContext } from './cartContext';
+import { useCartContext } from '../../../contexts/cartContext';
 
 export function AddToCartButton({
   children,

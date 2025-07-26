@@ -1,8 +1,9 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { FaHeart, FaStar } from 'react-icons/fa';
+import { FaHeart, FaRegHeart, FaStar } from 'react-icons/fa';
 import { AddToCartButton } from '../cart/addToCartButton';
+import { useFavoritesContext } from '@/contexts/favoritesContext';
 
 interface ProductCardProps {
   product: {
@@ -15,13 +16,17 @@ interface ProductCardProps {
   };
   isSelected?: boolean;
   onSelect?: (id: number) => void;
+  className?: string;
 }
 
 export function ProductCard({
   product,
   isSelected = false,
   onSelect = () => {},
+  className = '',
 }: ProductCardProps) {
+  const { isFavorite, toggleFavorite } = useFavoritesContext();
+
   // Calcula o preço com desconto se houver
   const discountedPrice = product.discountPercentage
     ? product.price * (1 - product.discountPercentage / 100)
@@ -29,11 +34,11 @@ export function ProductCard({
 
   return (
     <Card
-      className={`relative group cursor-pointer transition-shadow w-full ${
+      className={`relative group cursor-pointer transition-shadow ${
         isSelected
           ? 'border-2 border-theme1 dark:border-theme2 bg-theme2/50 dark:bg-theme1/50'
           : 'border-2 border-theme2 dark:border-theme1'
-      }`}
+      } ${className}`}
       onClick={() => onSelect(product.id)}
     >
       {product.discountPercentage && (
@@ -44,10 +49,11 @@ export function ProductCard({
 
       <Button
         variant={'secondary'}
-        className='absolute top-3 right-3 bg-theme2 dark:bg-theme1 text-theme1 dark:text-theme2 
+        className='absolute top-3 right-3 bg-theme2 dark:bg-theme1 text-red-700 dark:text-red-500 
                   rounded-full p-1 shadow hover:bg-theme1/30 dark:hover:bg-theme2/30 transition z-10'
+        onClick={() => toggleFavorite(product)}
       >
-        <FaHeart size={20} />
+        {isFavorite(product.id) ? <FaHeart /> : <FaRegHeart />}
       </Button>
 
       <CardContent className='flex flex-col items-center p-4'>
