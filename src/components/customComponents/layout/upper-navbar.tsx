@@ -33,17 +33,17 @@ export default function UpperNavbar() {
             <FaUser size={24} />
           </Button>
 
-          <div className='flex-1 flex justify-center'>
+          <div className='flex'>
             <ClientOnly>
               <Image
                 src={logoSrc}
                 alt='logo da empresa'
-                width={100}
-                height={60}
+                width={120}
+                height={80}
                 quality={100}
-                priority
                 className='object-contain'
                 style={{ height: 'auto' }}
+                priority
               />
             </ClientOnly>
           </div>

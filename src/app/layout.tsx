@@ -8,6 +8,14 @@ import { CartProvider } from '@/contexts/cartContext';
 import { Toaster } from '@/components/ui/sonner';
 import { FavoritesProvider } from '@/contexts/favoritesContext';
 
+export const metadata = {
+  title: 'Sam-Commerce',
+  description: 'E-commerce moderno com Next.js 13 e Tailwind',
+  icons: {
+    icon: '/favicon.ico',
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{

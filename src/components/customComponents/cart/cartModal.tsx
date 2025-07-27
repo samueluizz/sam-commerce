@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useCartContext } from '../../../contexts/cartContext';
 import Image from 'next/image';
 import { FaTrash } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 
 export function CartModal({ dropdown }: { dropdown?: boolean }) {
   const {
@@ -15,6 +16,8 @@ export function CartModal({ dropdown }: { dropdown?: boolean }) {
     totalItems,
     totalPrice,
   } = useCartContext();
+
+  const navigation = useRouter();
 
   if (!isCartOpen) return null;
 
@@ -136,6 +139,9 @@ export function CartModal({ dropdown }: { dropdown?: boolean }) {
             </div>
             <Button
               size='lg'
+              onClick={() => {
+                navigation.push('/checkout');
+              }}
               className='w-full mt-2 bg-white dark:bg-black text-neutral-900 dark:text-neutral-50 font-bold 
               hover:bg-theme1 hover:text-theme2 dark:hover:bg-theme2 dark:hover:text-theme1'
             >

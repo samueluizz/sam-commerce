@@ -16,7 +16,7 @@ export function ProductGridGroup({
 }: ProductGridGroupProps) {
   return (
     <div className='space-y-4 px-2'>
-      <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
+      <div className='grid grid-cols-2 md:grid-cols-4 gap-6 auto-rows-fr'>
         {products.slice(0, 4).map((product) => (
           <ProductCard
             key={product.id}
@@ -34,7 +34,7 @@ export function ProductGridGroup({
         ))}
       </div>
 
-      <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
+      <div className='grid grid-cols-2 md:grid-cols-4 gap-6 auto-rows-fr'>
         {products.slice(4, 8).map((product) => (
           <ProductCard
             key={product.id}

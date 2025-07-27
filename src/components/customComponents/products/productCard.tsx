@@ -34,7 +34,7 @@ export function ProductCard({
 
   return (
     <Card
-      className={`relative group cursor-pointer transition-shadow ${
+      className={`relative group cursor-pointer transition-shadow w-full h-full flex flex-col ${
         isSelected
           ? 'border-2 border-theme1 dark:border-theme2 bg-theme2/50 dark:bg-theme1/50'
           : 'border-2 border-theme2 dark:border-theme1'
@@ -56,8 +56,8 @@ export function ProductCard({
         {isFavorite(product.id) ? <FaHeart /> : <FaRegHeart />}
       </Button>
 
-      <CardContent className='flex flex-col items-center p-4'>
-        <div className='relative w-full h-24 mb-2'>
+      <CardContent className='flex flex-col flex-1 items-center p-4'>
+        <div className='relative w-full h-24 sm:h-60 max-h-60 mb-2'>
           <Image
             src={product.image}
             alt={product.name}
