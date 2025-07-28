@@ -42,6 +42,8 @@ export default function Testimonials() {
                     width={50}
                     height={50}
                     className='w-16 h-16 mx-auto rounded-full mb-2'
+                    unoptimized={true}
+                    priority
                   />
                   <h3 className='font-bold text-lg text-theme1 dark:text-theme2'>
                     {user.name}

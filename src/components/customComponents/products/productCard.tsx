@@ -99,7 +99,7 @@ export function ProductCard({
         </div>
 
         {isSelected && (
-          <div className='flex gap-2 mt-4 w-full'>
+          <div className='flex gap-2 mt-4'>
             <AddToCartButton product={product}>Add to cart</AddToCartButton>
           </div>
         )}

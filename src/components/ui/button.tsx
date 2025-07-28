@@ -21,8 +21,8 @@ const buttonVariants = cva(
           'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
         link: 'text-primary underline-offset-4 hover:underline',
         theme: `
-      flex flex-col items-center justify-center gap-1 sm:flex-row sm:gap-2 flex-1
-      bg-theme2 dark:bg-theme1 text-theme1 dark:text-theme2 font-medium py-2
+      flex flex-col items-center justify-center gap-1 sm:flex-row sm:gap-2 
+      bg-theme2 dark:bg-theme1 text-theme1 dark:text-theme2 font-medium 
       rounded-lg transition hover:bg-theme2/50 dark:hover:bg-theme1/50
     `,
       },

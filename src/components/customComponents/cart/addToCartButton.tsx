@@ -19,9 +19,13 @@ export function AddToCartButton({
   const { addToCart } = useCartContext();
 
   return (
-    <Button variant='theme' onClick={() => addToCart(product)}>
+    <Button
+      variant='theme'
+      className='h-12 sm:h-10 w-full sm:w-40 lg:w-60 max-w-full'
+      onClick={() => addToCart(product)}
+    >
       {children}
-      <span className='sm:ml-1'>
+      <span>
         <FaShoppingCart />
       </span>
     </Button>

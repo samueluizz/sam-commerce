@@ -55,7 +55,7 @@ export function SaleCarousel({ className }: SaleCarouselProps) {
                     <div className='text-theme1/50 dark:text-theme2/50 font-semibold mb-1'>
                       R${item.price}
                     </div>
-                    <div className='flex gap-2 mt-4 w-full'>
+                    <div className='flex gap-2 mt-4'>
                       <AddToCartButton product={item}>
                         Add to cart
                       </AddToCartButton>

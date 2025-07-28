@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useFavoritesContext } from '@/contexts/favoritesContext'; // Seu context personalizado
+import { useFavoritesContext } from '@/contexts/favoritesContext';
 import { ProductCard } from '@/components/customComponents/products/productCard';
 
 export default function FavoritesPage() {

@@ -21,6 +21,10 @@ export interface RandomUserAPIResponse {
   }[];
 }
 
+function normalizeImageUrl(url: string): string {
+  return url.replace('api.randomuser.me', 'randomuser.me');
+}
+
 export async function getRandomUsers(
   count: number = 12,
 ): Promise<RandomUser[]> {
@@ -32,7 +36,7 @@ export async function getRandomUsers(
   return data.results.map((user, index) => ({
     id: index + 1,
     name: `${user.name.first} ${user.name.last}`,
-    picture: user.picture.large,
+    picture: normalizeImageUrl(user.picture.large),
     location: `${user.location.city} - ${user.location.state}`,
   }));
 }
