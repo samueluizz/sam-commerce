@@ -10,6 +10,7 @@ import { useTheme } from 'next-themes';
 import { SearchBar } from '@/components/ui/searchbar';
 import { CartModal } from '../cart/cartModal';
 import { useCartContext } from '../../../contexts/cartContext';
+import Link from 'next/link';
 
 function ClientOnly({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
@@ -35,16 +36,18 @@ export default function UpperNavbar() {
 
           <div className='flex'>
             <ClientOnly>
-              <Image
-                src={logoSrc}
-                alt='logo da empresa'
-                width={120}
-                height={80}
-                quality={100}
-                className='object-contain'
-                style={{ height: 'auto' }}
-                priority
-              />
+              <Link href='/' className='flex items-center'>
+                <Image
+                  src={logoSrc}
+                  alt='logo da empresa'
+                  width={120}
+                  height={80}
+                  quality={100}
+                  className='object-contain'
+                  style={{ height: 'auto' }}
+                  priority
+                />
+              </Link>
             </ClientOnly>
           </div>
 
@@ -86,16 +89,18 @@ export default function UpperNavbar() {
       <div className='hidden md:flex items-center justify-around w-full px-6 h-20'>
         <div className='flex-shrink-0 w-1/5'>
           <ClientOnly>
-            <Image
-              src={logoSrc}
-              alt='logo da empresa'
-              width={120}
-              height={80}
-              quality={100}
-              priority
-              className='object-contain'
-              style={{ height: 'auto' }}
-            />
+            <Link href='/' className='flex items-center'>
+              <Image
+                src={logoSrc}
+                alt='logo da empresa'
+                width={120}
+                height={80}
+                quality={100}
+                priority
+                className='object-contain'
+                style={{ height: 'auto' }}
+              />
+            </Link>
           </ClientOnly>
         </div>
 
