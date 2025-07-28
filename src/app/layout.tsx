@@ -38,6 +38,7 @@ export default function RootLayout({
               <Header title='Need help? Call us: (+55)4321-1234' />
               <UpperNavbar />
               <LowerNavbar />
+
               {children}
               <Toaster position='top-center' richColors />
               <Footer />

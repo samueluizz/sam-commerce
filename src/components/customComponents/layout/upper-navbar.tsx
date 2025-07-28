@@ -50,6 +50,14 @@ export default function UpperNavbar() {
 
           <div className='flex items-center gap-1'>
             <Button
+              className='p-2'
+              variant='link'
+              onClick={() => navigation.push('/favorites')}
+            >
+              <FaHeart size={24} />
+            </Button>
+
+            <Button
               className='p-2 relative'
               variant='link'
               onClick={() => {
@@ -101,7 +109,7 @@ export default function UpperNavbar() {
             className='flex items-center hover:no-underline hover:text-theme1/70 dark:hover:text-theme2'
           >
             <FaUser className='text-base' />
-            <span className='hidden lg:inline'>Sign In</span>
+            <span className='hidden lg:inline'> Sign In </span>
           </Button>
           <Button
             variant={'link'}
@@ -125,7 +133,7 @@ export default function UpperNavbar() {
                 </span>
               )}
             </Button>
-            <CartModal dropdown />
+            <CartModal />
           </div>
           <ClientOnly>
             <ThemeToggle />
