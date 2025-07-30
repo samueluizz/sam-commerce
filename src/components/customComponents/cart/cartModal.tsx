@@ -26,7 +26,7 @@ export function CartModal() {
 
   const handleCheckout = () => {
     router.push('/checkout');
-    toggleCart(); // Fecha o dropdown/modal
+    toggleCart();
   };
 
   return (

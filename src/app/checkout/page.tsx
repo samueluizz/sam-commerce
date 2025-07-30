@@ -20,7 +20,6 @@ export default function CheckoutPage() {
         <h1 className='text-2xl font-bold mb-6'>Finalizar Compra</h1>
 
         <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
-          {/* Seção de Itens */}
           <div className='md:col-span-2'>
             <div className='bg-white dark:bg-gray-800 rounded-lg shadow p-6'>
               <h2 className='text-xl font-semibold mb-4'>
@@ -105,7 +104,6 @@ export default function CheckoutPage() {
             </div>
           </div>
 
-          {/* Resumo do Pedido */}
           <div className='md:col-span-1'>
             <div className='bg-white dark:bg-gray-800 rounded-lg shadow p-6 sticky top-4'>
               <h2 className='text-xl font-semibold mb-4'>Resumo do Pedido</h2>
