@@ -42,7 +42,7 @@ export default function CheckoutPage() {
                   {cart.map((item) => (
                     <div
                       key={item.id}
-                      className='flex items-center gap-4 border-b pb-4'
+                      className='flex items-center xs:flex-row sm:items-center  border-b pb-4'
                     >
                       <div className='relative w-20 h-20 flex-shrink-0'>
                         {item.image && (
@@ -63,8 +63,8 @@ export default function CheckoutPage() {
 
                         <div className='flex items-center gap-2 mt-2'>
                           <Button
-                            size='sm'
                             variant='outline'
+                            className='w-5 h-5 sm:w-9 sm:h-9'
                             onClick={() =>
                               updateQuantity(item.id, item.quantity - 1)
                             }
@@ -74,8 +74,8 @@ export default function CheckoutPage() {
                           </Button>
                           <span>{item.quantity}</span>
                           <Button
-                            size='sm'
                             variant='outline'
+                            className='w-5 h-5 sm:w-9 sm:h-9'
                             onClick={() =>
                               updateQuantity(item.id, item.quantity + 1)
                             }
@@ -85,13 +85,13 @@ export default function CheckoutPage() {
                         </div>
                       </div>
 
-                      <div className='flex flex-col items-end'>
+                      <div className='flex flex-col items-end text-xs sm:text-sm '>
                         <span className='font-bold'>
                           R${(item.price * item.quantity).toFixed(2)}
                         </span>
                         <button
                           onClick={() => removeFromCart(item.id)}
-                          className='text-red-500 hover:text-red-700 mt-1'
+                          className='text-red-500 hover:text-red-700 cursor-pointer text-sm mt-1'
                           title='Remover'
                         >
                           <FaTrash size={14} />

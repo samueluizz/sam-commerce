@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { FaHeart, FaRegHeart, FaStar } from 'react-icons/fa';
 import { AddToCartButton } from '../cart/addToCartButton';
 import { useFavoritesContext } from '@/contexts/favoritesContext';
+import { useState } from 'react';
 
 interface ProductCardProps {
   product: {
@@ -14,31 +15,36 @@ interface ProductCardProps {
     discountPercentage?: number;
     rating?: number;
   };
-  isSelected?: boolean;
+
   onSelect?: (id: number) => void;
   className?: string;
 }
 
 export function ProductCard({
   product,
-  isSelected = false,
   onSelect = () => {},
   className = '',
 }: ProductCardProps) {
   const { isFavorite, toggleFavorite } = useFavoritesContext();
+  const [showAddToCart, setShowAddToCart] = useState(false);
 
   const discountedPrice = product.discountPercentage
     ? product.price * (1 - product.discountPercentage / 100)
     : null;
 
+  const handleCardClick = () => {
+    setShowAddToCart(!showAddToCart);
+    onSelect(product.id);
+  };
+
   return (
     <Card
       className={`relative group cursor-pointer transition-shadow w-full h-full flex flex-col ${
-        isSelected
+        showAddToCart
           ? 'border-2 border-theme1 dark:border-theme2 bg-theme2/50 dark:bg-theme1/50'
           : 'border-2 border-theme2 dark:border-theme1'
       } ${className}`}
-      onClick={() => onSelect(product.id)}
+      onClick={handleCardClick}
     >
       {product.discountPercentage && (
         <div className='absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full z-10'>
@@ -97,8 +103,8 @@ export function ProductCard({
           )}
         </div>
 
-        {isSelected && (
-          <div className='flex gap-2 mt-4'>
+        {showAddToCart && (
+          <div className='flex gap-2 mt-4 p-4'>
             <AddToCartButton product={product}>Add to cart</AddToCartButton>
           </div>
         )}
