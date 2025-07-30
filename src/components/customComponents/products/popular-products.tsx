@@ -7,33 +7,26 @@ import {
   CarouselDots,
   CarouselItem,
 } from '@/components/ui/carousel';
-import {
-  TECH_CATEGORIES,
-  getProducts,
-  Product,
-  TechCategory,
-} from '@/lib/getProducts';
+import { getProducts, Product, TechCategory } from '@/lib/getProducts';
 import { toast } from 'sonner';
 import { CategorySelector } from './categorySelector';
-import { ProductGridGroup } from './productGridGroup';
+import { ProductGrid } from './productGridGroup';
+import { useEffect, useMemo, useState } from 'react';
 
 export function PopularProducts() {
-  const [selectedProductId, setSelectedProductId] = React.useState<
-    number | null
-  >(null);
-  const [selectedCategory, setSelectedCategory] = React.useState(0);
-  const [products, setProducts] = React.useState<Product[]>([]);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [error, setError] = React.useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<
+    TechCategory | 'all'
+  >('all');
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Carrega produtos ao alterar categoria
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
       try {
         const data = await getProducts(
-          16,
-          TECH_CATEGORIES[selectedCategory] as TechCategory,
+          selectedCategory === 'all' ? undefined : selectedCategory,
         );
         setProducts(data);
         setError(null);
@@ -48,14 +41,13 @@ export function PopularProducts() {
     fetchProducts();
   }, [selectedCategory]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isLoading) return;
     if (error) toast.error(error);
     else if (products.length === 0) toast('Nenhum produto encontrado');
-    else toast.success('Produtos carregados com sucesso!');
   }, [error, isLoading, products.length]);
 
-  const productGroups = React.useMemo(() => {
+  const productGroups = useMemo(() => {
     const groups = [];
     for (let i = 0; i < products.length; i += 8) {
       groups.push(products.slice(i, i + 8));
@@ -74,7 +66,6 @@ export function PopularProducts() {
         </h2>
 
         <CategorySelector
-          categories={TECH_CATEGORIES}
           selectedCategory={selectedCategory}
           onSelect={setSelectedCategory}
         />
@@ -87,11 +78,7 @@ export function PopularProducts() {
         <CarouselContent className='pb-8'>
           {productGroups.map((group, groupIndex) => (
             <CarouselItem key={groupIndex} className='basis-full'>
-              <ProductGridGroup
-                products={group}
-                selectedProductId={selectedProductId}
-                onSelect={setSelectedProductId}
-              />
+              <ProductGrid products={group} />
             </CarouselItem>
           ))}
         </CarouselContent>

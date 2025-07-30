@@ -27,7 +27,6 @@ export function ProductCard({
 }: ProductCardProps) {
   const { isFavorite, toggleFavorite } = useFavoritesContext();
 
-  // Calcula o preço com desconto se houver
   const discountedPrice = product.discountPercentage
     ? product.price * (1 - product.discountPercentage / 100)
     : null;

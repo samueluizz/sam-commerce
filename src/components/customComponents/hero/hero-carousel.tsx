@@ -11,6 +11,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import Image from 'next/image';
 import { Button } from '../../ui/button';
 import { MiniCarousel } from './hero-mini-carousel';
+import { useEffect, useRef, useState } from 'react';
 
 const itensDoCarrossel = [
   {
@@ -46,11 +47,11 @@ const itensDoCarrossel = [
 ];
 
 export function HeroCarousel() {
-  const [mainApi, setMainApi] = React.useState<CarouselApi>();
-  const [thumbApi, setThumbApi] = React.useState<CarouselApi>();
-  const [current, setCurrent] = React.useState(0);
+  const [mainApi, setMainApi] = useState<CarouselApi>();
+  const [thumbApi, setThumbApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!mainApi || !thumbApi) return;
 
     const handleMainSelect = () => {
@@ -81,9 +82,7 @@ export function HeroCarousel() {
     setCurrent(index);
   };
 
-  const plugin = React.useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: true }),
-  );
+  const plugin = useRef(Autoplay({ delay: 4000, stopOnInteraction: true }));
 
   return (
     <div className='flex flex-col items-center w-full bg-transparent py-4 md:py-8 px-4 md:px-0 mx-2'>
@@ -107,7 +106,7 @@ export function HeroCarousel() {
                     <div>
                       <Button
                         variant={'link'}
-                        className='bg-gradient-to-r from-theme2 to-theme2/40 text-theme1 font-semibold py-2 px-4 md:px-6 rounded-full shadow-none hover:scale-105 transition-all text-sm md:text-base'
+                        className='bg-theme2 text-theme1 font-semibold py-2 px-4 md:px-6 rounded-full shadow-none hover:scale-102 transition-all text-sm md:text-base'
                       >
                         Peça Agora
                       </Button>

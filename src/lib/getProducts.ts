@@ -1,8 +1,8 @@
 export const TECH_CATEGORIES = ['smartphones', 'laptops', 'tablets'] as const;
-
 export type TechCategory = (typeof TECH_CATEGORIES)[number];
+export type SelectableCategory = TechCategory | 'all';
 
-export interface Product {
+export type Product = {
   id: number;
   title: string;
   description: string;
@@ -11,36 +11,32 @@ export interface Product {
   rating: number;
   stock: number;
   brand: string;
-  category: TechCategory;
+  category: string;
   thumbnail: string;
   images: string[];
-}
+};
 
-export interface ProductAPIResponse {
-  products: Product[];
-  total: number;
-  skip: number;
-  limit: number;
-}
+export async function getProducts(category?: TechCategory): Promise<Product[]> {
+  try {
+    if (category) {
+      const response = await fetch(
+        `https://dummyjson.com/products/category/${category}`,
+      );
+      const data = await response.json();
+      return data.products;
+    }
 
-export async function getProducts(
-  limit: number = 100,
-  category?: TechCategory,
-): Promise<Product[]> {
-  const url = category
-    ? `https://dummyjson.com/products/category/${category}?limit=${limit}`
-    : `https://dummyjson.com/products?limit=${limit}`;
+    const allResponses = await Promise.all(
+      TECH_CATEGORIES.map((cat) =>
+        fetch(`https://dummyjson.com/products/category/${cat}`)
+          .then((res) => res.json())
+          .then((data) => data.products),
+      ),
+    );
 
-  const response = await fetch(url);
-  const data: ProductAPIResponse = await response.json();
-
-  if (!response.ok) {
-    throw new Error(`Error fetching products: ${JSON.stringify(data)}`);
+    return allResponses.flat();
+  } catch (error) {
+    console.error('Error in getProducts:', error);
+    throw error;
   }
-
-  const techProducts = data.products
-    .filter((product) => TECH_CATEGORIES.includes(product.category))
-    .slice(0, limit);
-
-  return techProducts;
 }
