@@ -31,7 +31,9 @@ export default function UpperNavbar() {
       <div className='flex flex-col md:hidden w-full px-2 pt-2'>
         <div className='flex items-center justify-between w-full'>
           <Button className='p-2' variant='link'>
-            <FaUser size={24} />
+            <Link href='/login' className='flex items-center'>
+              <FaUser size={24} />
+            </Link>
           </Button>
 
           <div className='flex'>
@@ -112,6 +114,7 @@ export default function UpperNavbar() {
           <Button
             variant={'link'}
             className='flex items-center hover:no-underline hover:text-theme1/70 dark:hover:text-theme2'
+            onClick={() => navigation.push('/login')}
           >
             <FaUser className='text-base' />
             <span className='hidden lg:inline'> Sign In </span>
