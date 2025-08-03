@@ -5,6 +5,10 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { FaTrash } from 'react-icons/fa';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useAuthContext } from '@/contexts/authContext';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
 
 export default function CheckoutPage() {
   const { cart, updateQuantity, removeFromCart, totalPrice, totalItems } =
@@ -13,6 +17,26 @@ export default function CheckoutPage() {
   const subtotal = totalPrice;
   const shipping = 0;
   const total = subtotal + shipping;
+
+  const navigation = useRouter();
+
+  const { isLoggedIn, isAuthLoading } = useAuthContext();
+
+  useEffect(() => {
+    if (!isAuthLoading && !isLoggedIn) {
+      toast.error('Você deve estar logado para finalizar a compra!', {
+        action: {
+          label: 'Login',
+          onClick: () => navigation.push('/login'),
+        },
+      });
+      navigation.push('/login');
+    }
+  }, [isLoggedIn, isAuthLoading, navigation]);
+
+  if (isAuthLoading) return <div>Carregando...</div>;
+
+  if (!isLoggedIn) return null;
 
   return (
     <div className='container mx-auto px-4 py-8'>

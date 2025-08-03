@@ -11,30 +11,50 @@ import { Label } from '@/components/ui/label';
 import { FaApple, FaGoogle } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { login } from '@/lib/auth';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
+import { useAuthContext } from '@/contexts/authContext';
 
 export default function LoginForm() {
   const navigation = useRouter();
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const { loginUser, isLoggedIn } = useAuthContext();
+  const searchParams = useSearchParams();
 
-  function handleLogin(e: React.FormEvent) {
+  useEffect(() => {
+    if (isLoggedIn) {
+      const redirectUrl = searchParams.get('redirect') || '/profile';
+      navigation.push(redirectUrl);
+    }
+  }, [isLoggedIn, navigation, searchParams]);
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const isLogged = login(email, password);
+    setIsLoading(true);
 
-    if (isLogged) {
-      navigation.push('/checkout');
-    } else {
-      toast.error('Email ou senha inválidos!', {
-        action: {
-          label: 'Clique para cadastrar',
-          onClick: () => navigation.push('/signup'),
-        },
-      });
+    try {
+      const success = loginUser(email, password);
+
+      if (success) {
+        toast.success('Login realizado com sucesso!');
+        const redirectUrl = searchParams.get('redirect') || '/profile';
+        navigation.push(redirectUrl as string);
+      } else {
+        toast.error('Email ou senha inválidos!', {
+          action: {
+            label: 'Cadastrar',
+            onClick: () => navigation.push('/signup'),
+          },
+        });
+      }
+    } catch (error) {
+      toast.error('Ocorreu um erro durante o login' + error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -55,7 +75,7 @@ export default function LoginForm() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className='grid gap-4 text-theme1 dark:text-theme2'>
               <div className='flex flex-col items-center justify-center md:flex-row gap-4'>
                 <Button variant='theme'>
@@ -105,9 +125,9 @@ export default function LoginForm() {
                   type='submit'
                   variant='theme'
                   className='w-full'
-                  onClick={handleLogin}
+                  disabled={isLoading}
                 >
-                  Login
+                  {isLoading ? 'Entrando...' : 'Login'}
                 </Button>
               </div>
             </div>

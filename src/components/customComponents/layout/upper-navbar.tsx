@@ -11,6 +11,7 @@ import { SearchBar } from '@/components/ui/searchbar';
 import { CartModal } from '../cart/cartModal';
 import { useCartContext } from '../../../contexts/cartContext';
 import Link from 'next/link';
+import { useAuthContext } from '@/contexts/authContext';
 
 function ClientOnly({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
@@ -24,6 +25,15 @@ export default function UpperNavbar() {
   const { totalItems, toggleCart } = useCartContext();
   const logoSrc = resolvedTheme === 'dark' ? '/logo-dark.png' : '/logo.png';
   const navigation = useRouter();
+  const { isLoggedIn } = useAuthContext();
+
+  const handleButtonClick = () => {
+    if (isLoggedIn) {
+      navigation.push('/profile');
+    } else {
+      navigation.push('/login');
+    }
+  };
 
   return (
     <div className='w-full bg-theme2/70 dark:bg-theme1/30'>
@@ -114,10 +124,12 @@ export default function UpperNavbar() {
           <Button
             variant={'link'}
             className='flex items-center hover:no-underline hover:text-theme1/70 dark:hover:text-theme2'
-            onClick={() => navigation.push('/login')}
+            onClick={handleButtonClick}
           >
             <FaUser className='text-base' />
-            <span className='hidden lg:inline'> Sign In </span>
+            <span className='hidden lg:inline'>
+              {isLoggedIn ? 'Perfil' : 'Login'}{' '}
+            </span>
           </Button>
           <Button
             variant={'link'}

@@ -7,6 +7,7 @@ import Footer from '@/components/customComponents/layout/footer';
 import { CartProvider } from '@/contexts/cartContext';
 import { Toaster } from '@/components/ui/sonner';
 import { FavoritesProvider } from '@/contexts/favoritesContext';
+import { AuthProvider } from '@/contexts/authContext';
 
 export const metadata = {
   title: 'Sam-Commerce',
@@ -27,24 +28,26 @@ export default function RootLayout({
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
       </head>
       <body className='w-full min-h-screen overflow-x-hidden'>
-        <CartProvider>
-          <FavoritesProvider>
-            <ThemeProvider
-              attribute='class'
-              defaultTheme='system'
-              enableSystem
-              disableTransitionOnChange
-            >
-              <Header title='Need help? Call us: (+55)4321-1234' />
-              <UpperNavbar />
-              <LowerNavbar />
+        <AuthProvider>
+          <CartProvider>
+            <FavoritesProvider>
+              <ThemeProvider
+                attribute='class'
+                defaultTheme='system'
+                enableSystem
+                disableTransitionOnChange
+              >
+                <Header title='Need help? Call us: (+55)4321-1234' />
+                <UpperNavbar />
+                <LowerNavbar />
 
-              {children}
-              <Toaster position='top-center' richColors />
-              <Footer />
-            </ThemeProvider>
-          </FavoritesProvider>
-        </CartProvider>
+                {children}
+                <Toaster position='top-center' richColors />
+                <Footer />
+              </ThemeProvider>
+            </FavoritesProvider>
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

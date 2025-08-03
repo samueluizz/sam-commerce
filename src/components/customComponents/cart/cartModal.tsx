@@ -5,6 +5,8 @@ import { useCartContext } from '../../../contexts/cartContext';
 import Image from 'next/image';
 import { FaTrash } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
+import { useAuthContext } from '@/contexts/authContext';
+import { toast } from 'sonner';
 
 export function CartModal() {
   const {
@@ -16,8 +18,9 @@ export function CartModal() {
     totalItems,
     totalPrice,
   } = useCartContext();
+  const { isLoggedIn } = useAuthContext();
 
-  const router = useRouter();
+  const navigation = useRouter();
 
   if (!isCartOpen) return null;
 
@@ -25,8 +28,18 @@ export function CartModal() {
   const shipping = 0;
 
   const handleCheckout = () => {
-    router.push('/checkout');
-    toggleCart();
+    if (!isLoggedIn) {
+      toast.error('Você deve estar logado para finalizar a compra!', {
+        action: {
+          label: 'Login',
+          onClick: () => navigation.push('/login'),
+        },
+      });
+    } else {
+      navigation.push('/checkout');
+      toggleCart();
+    }
+    return;
   };
 
   return (
