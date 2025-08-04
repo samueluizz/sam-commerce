@@ -8,12 +8,18 @@ import UserAvatar from '@/components/customComponents/users/userAvatar';
 import ProfileImageUpload from '@/components/customComponents/users/profileImageUpload';
 import { useAuthContext } from '@/contexts/authContext';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
+import { motion } from 'framer-motion';
 
 export default function ProfilePage() {
-  const { user, isLoggedIn, isAuthLoading, logoutUser } = useAuthContext();
+  const { user, isLoggedIn, isAuthLoading, logoutUser, changePassword } =
+    useAuthContext();
   const navigation = useRouter();
+
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   useEffect(() => {
     if (!isAuthLoading && !isLoggedIn) {
@@ -31,9 +37,41 @@ export default function ProfilePage() {
 
   if (!isLoggedIn) return null;
 
+  const handlePasswordChange = () => {
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      toast.error('Preencha todos os campos da troca de senha.');
+      return;
+    }
+
+    if (currentPassword !== user?.password) {
+      toast.error('Senha atual incorreta.');
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      toast.error('A nova senha e a confirmação não coincidem.');
+      return;
+    }
+
+    const result = changePassword(user.email, newPassword);
+
+    if (result.success) {
+      toast.success(result.message);
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+    } else {
+      toast.error(result.message);
+    }
+  };
   return (
-    <div>
-      <div className='px-4 space-y-6 sm:px-6 '>
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 1 }}
+      className='relative min-w-screen min-h-screen gap-y-10'
+    >
+      <div className='max-w-7xl mx-auto px-4 space-y-6 sm:px-6'>
         <div className='pt-6 flex justify-end'>
           <Button variant={'destructive'} onClick={logoutUser}>
             Sair
@@ -89,6 +127,8 @@ export default function ProfilePage() {
                 <Input
                   type='password'
                   id='current-password'
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
                   className='border-black dark:border-white'
                 />
               </div>
@@ -97,6 +137,8 @@ export default function ProfilePage() {
                 <Input
                   type='password'
                   id='new-password'
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
                   className='border-black dark:border-white'
                 />
               </div>
@@ -105,6 +147,8 @@ export default function ProfilePage() {
                 <Input
                   type='password'
                   id='confirm-password'
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   className='border-black dark:border-white'
                 />
               </div>
@@ -112,9 +156,11 @@ export default function ProfilePage() {
           </Card>
         </div>
         <div className='pt-6'>
-          <Button variant={'theme'}>Save</Button>
+          <Button variant={'theme'} onClick={handlePasswordChange}>
+            Save
+          </Button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

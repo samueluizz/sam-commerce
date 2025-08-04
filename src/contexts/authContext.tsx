@@ -7,7 +7,13 @@ import {
   useState,
   ReactNode,
 } from 'react';
-import { getUser, login as loginFn, logout as logoutFn } from '@/lib/auth';
+import {
+  getUser,
+  login as loginFn,
+  logout as logoutFn,
+  registerUser as registerFn,
+  changePassword as changePasswordFn,
+} from '@/lib/auth';
 
 interface User {
   name: string;
@@ -23,6 +29,11 @@ interface AuthContextType {
   logoutUser: () => void;
   profileImage: string | null;
   setProfileImage: (image: string | null) => void;
+  registerUser: (user: User) => { success: boolean; message: string };
+  changePassword: (
+    email: string,
+    newPassword: string,
+  ) => { success: boolean; message: string };
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -52,6 +63,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [user]);
 
+  const registerUser = (user: User) => {
+    const result = registerFn(user);
+    if (result.success) {
+      const loggedUser = getUser();
+      setUser(loggedUser);
+      setIsLoggedIn(true);
+    }
+    return result;
+  };
+
+  const changePassword = (email: string, newPassword: string) => {
+    const result = changePasswordFn(email, newPassword);
+    if (result.success) {
+      const updatedUser = getUser();
+      setUser(updatedUser);
+    }
+    return result;
+  };
+
   const loginUser = (email: string, password: string): boolean => {
     const success = loginFn(email, password);
     if (success) {
@@ -78,6 +108,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isAuthLoading,
         profileImage,
         setProfileImage,
+        registerUser,
+        changePassword,
       }}
     >
       {children}
