@@ -4,8 +4,8 @@
 
 ## Links
 
-- Deploy: [Vercel]([https://sam-commerce.vercel.app](https://sam-commerce-beryl.vercel.app/))
-- Código-fonte: [GitHub]([https://github.com/samueluizz/sam-commerce])
+- Deploy: [Vercel](https://sam-commerce.vercel.app](https://sam-commerce-beryl.vercel.app/))
+- Código-fonte: [GitHub](https://github.com/samueluizz/sam-commerce)
 
 ## Funcionalidades
 
