@@ -9,62 +9,25 @@
 
 ## Funcionalidades
 
-## Links
+**Catálogo dinâmico de produtos** com dados da API [DummyJSON](https://dummyjson.com/),
 
-- Deploy: [Vercel](https://sam-commerce-beryl.vercel.app/)
-- Código-fonte: [GitHub](https://github.com/samueluizz/sam-commerce)
+**Busca e filtros** por categoria (smartphones, laptops e tablets),
 
-## Funcionalidades
+**Carrinho interativo** com modal e dropdown, com persistência no localStorage,
 
-**Catálogo dinâmico de produtos** com dados da API [DummyJSON](https://dummyjson.com/)
-**Busca e filtros** por categoria (smartphones, laptops e tablets)
-**Carrinho interativo** com modal e dropdown, com persistência no localStorage
-**Sistema de autenticação** com:
+**Sistema de autenticação** com: Cadastro e login, Perfil com upload de imagem e Alteração de senha,
 
-- Cadastro e login
-- Perfil com upload de imagem
-- Alteração de senha
-  **Tema claro/escuro** com com toggle  
-   **Lista de favoritos** persistente  
-  **Layout responsivo** mobile/desktop  
-  **Notificações** com Sonner (toast)
-  **Imagens otimizadas** com `next/image`
-  **Animações suaves** com Framer Motion
+**Tema claro/escuro** com com toggle,
 
-## Páginas Incluídas
+**Lista de favoritos** persistente,
 
-- Home
-- Login / Cadastro
-- Perfil do Usuário
-- Lista de Favoritos
-- Página de Busca
-- Checkout
+**Layout responsivo** mobile/desktop,
 
-## Tecnologias Utilizadas
+**Notificações** com Sonner (toast),
 
-**Catálogo dinâmico de produtos** com dados da API [DummyJSON](https://dummyjson.com/)
+**Imagens otimizadas** com `next/image`,
 
-**Busca e filtros** por categoria (smartphones, laptops e tablets)
-
-**Carrinho interativo** com modal e dropdown, com persistência no localStorage
-
-**Sistema de autenticação** com:
-
-- Cadastro e login
-- Perfil com upload de imagem
-- Alteração de senha
-
-**Tema claro/escuro** com com toggle
-
-**Lista de favoritos** persistente
-
-**Layout responsivo** mobile/desktop
-
-**Notificações** com Sonner (toast)
-
-**Imagens otimizadas** com `next/image`
-
-**Animações suaves** com Framer Motion
+**Animações suaves** com Framer Motion.
 
 ## Páginas Incluídas
 
